@@ -37,7 +37,6 @@ router.post('/', async (req, res) => {
     if (!conversationId) {
       const title = await generateTitle(message);
       conversationId = await createConversation(clientDb, title);
-    } else {
     }
 
     await insertMessage(clientDb, conversationId, 'user', message);
