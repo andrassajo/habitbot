@@ -1,0 +1,17 @@
+# Node modules (if using Node.js)
+node_modules/
+
+# Environment variables (if applicable)
+.env
+
+# Log files
+*.log
+
+# VS Code settings folder (optional, if you don't want to share your local configurations)
+.vscode/
+
+.turbo/
+
+# Build output directories (customize as needed)
+dist/
+build/
