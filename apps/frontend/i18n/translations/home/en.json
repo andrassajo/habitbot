@@ -1,0 +1,28 @@
+{
+    "home": {
+        "meta": {     
+            "title": "HabitBot | Your personal habit tracker",
+            "description": "HabitBot is a personal habit tracker"
+        },
+        "title": "Welcome to HabitBot – Your Personal Habit Companion",
+        "description": "Habitbot is here to help you build and maintain the habits that matter. Our AI-powered chatbots offer tailored guidance whether you’re looking to boost productivity, stay fit, or find inner balance. Choose a specialized path or simply chat with Habitbot to get started on your journey to a better you.",
+        "categories": {
+            "default": {
+                "title": "Chat with Habitbot (Default Chat)",
+                "description": "Engage in a friendly conversation with Habitbot for personalized tips, daily motivation, and guidance on any topic."
+            },
+            "productivity": {
+                "title": "Productivity Guru",
+                "description": "Unlock strategies to organize your day, manage your time, and conquer your goals with focused, actionable advice.."
+            },
+            "fitness": {
+                "title": "Fitness Coach",
+                "description": "Receive customized workout suggestions, nutrition tips, and motivational support to help you stay on track with your fitness journey."
+            },
+            "mindfulness": {
+                "title": "Mindfulness Mentor",
+                "description": "Explore techniques for meditation, stress relief, and mindful living to nurture your mental well-being and balance."
+            }
+        }
+    }
+}
