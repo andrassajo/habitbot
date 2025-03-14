@@ -3,6 +3,7 @@ import cors from 'cors';
 import authRouter from './routes/auth';
 import chatRouter from './routes/chat';
 import categoryRouter from './routes/category';
+import messagesRouter from './routes/messages';
 import 'module-alias/register';
 
 export const app = express();
@@ -12,3 +13,4 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/chat', chatRouter);
 app.use('/api/category', categoryRouter);
+app.use('/api/messages', messagesRouter);

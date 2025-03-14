@@ -2,7 +2,7 @@
 
 import { Categorie } from "@shared/types";
 import { cookies } from 'next/headers';
-import { UUIDTypes, v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { ChatInputSchame, FormState } from "./types";
 import { redirect } from "next/navigation";
 
@@ -49,27 +49,34 @@ export async function sendMessage(
     };
   }
 
-  const userId = await ensureUserCookie();
+    const userId = await ensureUserCookie();
 
-  const response = await fetch(`${process.env['BACKEND_URL']}/api/chat`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      ...validationFields.data,
-      category_key,
-      conversation_id,
-      user_id: userId
-    }),
-  })
+    const response = await fetch(`${process.env['BACKEND_URL']}/api/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...validationFields.data,
+        category_key,
+        conversation_id,
+        user_id: userId
+      }),
+    })
+  
+    const data = await response.json();
+  
+    if (data.success && !conversation_id) {
+      redirect(`/${category_key}/${data.conversation_id}`);
+    } else
+      return {
+        message: "Something went wrong. Please try again later.",
+      };
+}
 
+export async function getMessages(conversation_id: string) {
+  const response = await fetch(`${process.env['BACKEND_URL']}/api/messages/${conversation_id}`);
   const data = await response.json();
 
-  if (data.success && !conversation_id) {
-    redirect(`/${category_key}/${data.conversation_id}`);
-  } else
-    return {
-      message: "Something went wrong. Please try again later.",
-    };
+  return data.messages;
 }

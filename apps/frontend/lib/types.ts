@@ -8,6 +8,10 @@ export type FormState = {
 } | undefined
 
 export const ChatInputSchame = z.object({
-    message: z.string().trim()
+    message: z
+        .string()
+        .min(1, 'Message must be at least 1 character long')
+        .max(500, 'Message must be at most 500 characters long')
+        .trim()
 
 })

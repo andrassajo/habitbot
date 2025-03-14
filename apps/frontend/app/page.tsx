@@ -1,6 +1,6 @@
 import Categories from "@/components/categories";
 import SkeletonCategories from "@/components/categories/categories-skeleton";
-import Chat from "@/components/chat";
+import ChatInput from "@/components/chat/chat-input";
 import Hero from "@/components/hero";
 import { Suspense } from "react";
 
@@ -12,7 +12,7 @@ export default function Home() {
         <Suspense fallback={<SkeletonCategories />}>
           <Categories />
         </Suspense>
-        <Chat />
+        <ChatInput />
       </main>
     </div>
   );

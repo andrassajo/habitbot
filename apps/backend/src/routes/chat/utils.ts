@@ -1,3 +1,4 @@
+import { generateTitle } from "@/lib/openai";
 import { Categorie } from "@shared/types";
 import { PoolClient } from "pg";
 
@@ -8,7 +9,14 @@ import { PoolClient } from "pg";
  * @param title - The title of the conversation.
  * @returns {Promise<string>} A promise that resolves to the newly created conversation ID.
  */
-export async function createConversation(client: any, title: string, category: string): Promise<string> {
+export async function ensureConversation(client: any, conversation_id: string, message: string, category: string): Promise<string> {
+  const result = await client.query('SELECT id FROM conversations WHERE id = $1', [conversation_id]);
+
+  console.log(`Conversation found by id: ${conversation_id}: ${result.rows[0]?.id}`);
+
+  if (result.rows.length === 0) {
+    const title = await generateTitle(message);
+
     const result = await client.query(
       'INSERT INTO conversations(title, category_id) VALUES($1, $2) RETURNING id',
       [title, category]
@@ -18,7 +26,10 @@ export async function createConversation(client: any, title: string, category: s
     console.log(`New conversation created with ID: ${newConversationId}`);
 
     return newConversationId;
+  } else {
+    return result.rows[0].id;
   }
+}
   
   /**
  * Inserts a message into the messages table.
@@ -45,7 +56,6 @@ export async function insertMessage(
     console.log(`New message inserted into conversation ${conversation_id} for role ${role}`);
   }
   
-
 export async function getCategoryByKey(client: PoolClient, key: string): Promise<string> {
     const result = await client.query('SELECT id FROM categories WHERE key = $1', [key]);
 
