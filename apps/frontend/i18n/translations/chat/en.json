@@ -1,0 +1,7 @@
+{
+    "chat": {
+        "send": "Send",
+        "message_placeholdr": "Type your message here...",
+        "thinking": " is thinking..."
+    }
+}

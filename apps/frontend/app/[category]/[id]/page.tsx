@@ -4,6 +4,21 @@ import ConversationsSkeleton from '@/components/conversations/conversations-skel
 import Info from '@/components/info';
 import InfoSkeleton from '@/components/info/info-skeleton';
 import { Suspense } from 'react';
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { getConversationById } from '@/lib/actions';
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+
+    const t = await getTranslations('home.meta');
+    const conversation = await getConversationById(id);
+
+    return {
+        title: conversation?.title || t('title')
+    };
+}
+
 export default async function ChatPage({ params }: {
     params: Promise<{ category: string, id: string }>
 }) {

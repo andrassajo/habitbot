@@ -1,8 +1,6 @@
 import { Conversation } from "@shared/types";
 import { PoolClient } from "pg";
 
-
-
 export async function getConversationsByUser(clientDb: PoolClient, user: string): Promise<(Pick<Conversation, 'id' | 'title'> & { categoryname: string, categorykey: string })[]> {
   const { rows } = await clientDb.query<any>(
     `SELECT conv.id, conv.title, cat.name as categoryname, cat.key as categorykey
@@ -13,4 +11,13 @@ export async function getConversationsByUser(clientDb: PoolClient, user: string)
   );
 
   return rows;
+}
+
+export async function getConversationById(clientDb: PoolClient, id: string): Promise<Conversation> {
+  const { rows } = await clientDb.query<any>(
+    `SELECT * FROM conversations WHERE id = $1`,
+    [id]
+  );
+
+  return rows[0];
 }

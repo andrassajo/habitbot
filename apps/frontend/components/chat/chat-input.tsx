@@ -5,6 +5,7 @@ import { FormState } from "@/lib/types";
 import { useActionState, useState } from "react";
 import { useRef } from "react";
 import Spinner from "../spinner";
+import { useTranslations } from "next-intl";
 
 export default function ChatInput({
     conversation_id,
@@ -13,6 +14,8 @@ export default function ChatInput({
     conversation_id?: string,
     category?: string
 }) {
+    const t = useTranslations("chat");
+
     const sendMessageWithConversation = (state: FormState, formData: FormData) =>
         sendMessage(state, formData, category, conversation_id);
 
@@ -59,7 +62,7 @@ export default function ChatInput({
                     ${isPending || !inputValue ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 disabled={isPending || !inputValue}
             >
-                {isPending ? <Spinner /> : 'Send'}
+                {isPending ? <Spinner /> : t("send")}
             </button>
         </form>
     );

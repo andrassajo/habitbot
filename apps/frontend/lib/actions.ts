@@ -88,10 +88,17 @@ export async function getCategoryByKey(category_key: string) {
   return data.category;
 }
 
+export async function getConversationById(id: string) {
+  const response = await fetch(`${process.env['BACKEND_URL']}/api/conversations/${id}`);
+  const data = await response.json();
+
+  return data.conversation;
+}
+
 export async function getConversationsByUser() {
   const userId = await ensureUserCookie();
 
-  const response = await fetch(`${process.env['BACKEND_URL']}/api/conversations/${userId}`);
+  const response = await fetch(`${process.env['BACKEND_URL']}/api/conversations/by-user/${userId}`);
   const data = await response.json();
 
   return data.conversations;
