@@ -1,10 +1,12 @@
-import { Categorie } from "@shared/types";
+import { getCategoryByKey } from "@/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Info({ category }: { category: Categorie }) {
+export default async function Info({ categoryKey }: { categoryKey: string }) {
+  const category = await getCategoryByKey(categoryKey);
+
   return (
-    <div className="flex flex-col items-center justify-around h-full w-full">
+    <div className="hidden lg:flex flex-col items-center justify-around h-full w-full">
       <Link href="/" className="flex items-center gap-2 text-gray-200">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="m8 5l-5 5l5 5" /><path d="M3 10h8c5.523 0 10 4.477 10 10v1" /></g></svg>
         Back to homepage

@@ -41,7 +41,7 @@ export default function ChatInput({
         <form
             ref={formRef}
             action={action}
-            className="p-2 border-t bg-white border-gray-300 rounded-xl w-full md:w-[550px] relative text-xs"
+            className="p-2 border-t bg-white border-gray-300 rounded-xl w-full lg:w-[550px] relative text-xs"
         >
             <textarea
                 id="message"
@@ -55,8 +55,8 @@ export default function ChatInput({
             />
             <button
                 type="submit"
-                className={`w-[60px] flex items-center justify-center absolute right-2 bottom-2 bg-secondary text-white px-4 py-2 rounded-full font-semibold transition hover:bg-secondary-dark
-          ${isPending || !inputValue ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                className={`w-[60px] h-[35px] flex items-center justify-center absolute right-2 bottom-2 bg-secondary text-white px-4 py-2 rounded-full font-semibold transition hover:bg-secondary-dark
+                    ${isPending || !inputValue ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 disabled={isPending || !inputValue}
             >
                 {isPending ? <Spinner /> : 'Send'}

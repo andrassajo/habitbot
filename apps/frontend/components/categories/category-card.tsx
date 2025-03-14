@@ -17,6 +17,7 @@ export default function CategoryCard({ category }: { category: Categorie }) {
 
     const handleNavigation = async () => {
         await ensureUserCookie();
+
         router.push(`/${key}/${v4()}`);
     };
 
