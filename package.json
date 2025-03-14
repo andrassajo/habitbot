@@ -2,6 +2,7 @@
   "name": "habitbot",
   "private": true,
   "devDependencies": {
+    "@types/lodash": "^4.17.16",
     "turbo": "latest"
   },
   "scripts": {
@@ -11,6 +12,7 @@
   },
   "packageManager": "pnpm@9.14.2",
   "dependencies": {
+    "lodash": "^4.17.21",
     "zod": "^3.24.2"
   }
 }

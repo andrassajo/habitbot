@@ -2,6 +2,13 @@
     "chat": {
         "send": "Send",
         "message_placeholdr": "Type your message here...",
-        "thinking": " is thinking..."
+        "thinking": " is thinking...",
+        "back": "Back to home page",
+        "topic": "Topic",
+        "mobile_nav": {
+            "home": "Home",
+            "info": "Info",
+            "conversations": "All conversations"
+        }
     }
 }
