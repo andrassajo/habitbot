@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import dotenv from 'dotenv';
 import { generateTitle, getResponse } from '@/lib/openai';
-import { createConversation, insertMessage } from './utils';
+import { createConversation, ensureUser, getCategoryByKey, insertMessage } from './utils';
 import { pool } from '@/lib/db';
 dotenv.config();
 
@@ -23,7 +23,14 @@ const router = Router();
  * @param res - Express response object used to return the result.
  */
 router.post('/', async (req, res) => {
-  const { message, conversation_id } = req.body;
+  const {
+    message,
+    conversation_id: conversation_id_,
+    user_id,
+    category_key  
+  } = req.body;
+
+  console.log(`Endpoint /api/chat called with: ${message}`);
   
   if (!message) {
     return res.status(400).json({ error: 'Message is required' });
@@ -33,24 +40,29 @@ router.post('/', async (req, res) => {
   try {
     await clientDb.query('BEGIN');
 
-    let conversationId = conversation_id;
-    if (!conversationId) {
+    const category = await getCategoryByKey(clientDb, category_key);
+
+    let conversation_id = conversation_id_;
+    if (!conversation_id) {
       const title = await generateTitle(message);
-      conversationId = await createConversation(clientDb, title);
+      conversation_id = await createConversation(clientDb, title, category);
     }
 
-    await insertMessage(clientDb, conversationId, 'user', message);
+    const user = await ensureUser(clientDb, user_id,);
 
-    const aiResponse = await getResponse(conversationId, message);
+    await insertMessage(clientDb, conversation_id, user, 'user', message, category);
 
-    await insertMessage(clientDb, conversationId, 'assistant', aiResponse);
+    const aiResponse = await getResponse(conversation_id, message);
+
+    await insertMessage(clientDb, conversation_id, user, 'assistant', aiResponse, category);
 
     await clientDb.query('COMMIT');
 
-    res.json({ conversation_id: conversationId, response: aiResponse });
+    res.json({ success: true, conversation_id, response: aiResponse });
   } catch (error) {
+    console.log('Error processing message:', error);
     await clientDb.query('ROLLBACK');
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error });
   } finally {
     clientDb.release();
   }

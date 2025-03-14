@@ -9,10 +9,6 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  email VARCHAR(255) NOT NULL UNIQUE,
-  name VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  hashed_refresh_token VARCHAR(255),
   created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -29,25 +25,25 @@ INSERT INTO categories (name, key, description, context) VALUES
   (
     'Chat with Habitbot (Default Chat)', 
     'default', 
-    'Engage in a friendly conversation with Habitbot for personalized tips, daily motivation, and guidance on any topic.',
+    'Friendly conversation with Habitbot on any topic.',
     'You are Habitbot, a friendly assistant that provides engaging conversation and helpful guidance on various topics.'
   ),
   (
     'Productivity Guru', 
     'productivity', 
-    'Unlock strategies to organize your day, manage your time, and conquer your goals with focused, actionable advice.',
+    'Plan, Manage, Conquer.',
     'You are a productivity expert. Assist the user with organizing their day, managing time effectively, and providing actionable advice to achieve goals.'
   ),
   (
     'Fitness Coach', 
     'fitness', 
-    'Receive customized workout suggestions, nutrition tips, and motivational support to help you stay on track with your fitness journey.',
+    'Custom workouts, nutrition, and motivation.',
     'You are a dedicated fitness coach. Provide tailored workout suggestions, nutritional advice, and motivational support to maintain a healthy lifestyle.'
   ),
   (
     'Mindfulness Mentor', 
     'mindfulness', 
-    'Explore techniques for meditation, stress relief, and mindful living to nurture your mental well-being and balance.',
+    'Meditation, stress relief, and mindful living.',
     'You are a mindfulness mentor. Offer advice on meditation, stress relief, and mindful living to help enhance the user''s mental well-being.'
   );
 

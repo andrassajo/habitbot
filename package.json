@@ -9,5 +9,8 @@
     "build": "turbo run build",
     "bootstrap": "node bootstrap.js"
   },
-  "packageManager": "pnpm@9.14.2"
+  "packageManager": "pnpm@9.14.2",
+  "dependencies": {
+    "zod": "^3.24.2"
+  }
 }

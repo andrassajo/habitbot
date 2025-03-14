@@ -74,7 +74,6 @@ for (const [tableName, columns] of Object.entries(tables)) {
     const typeName = toPascalCase(tableName);
     output += `export type ${typeName} = {\n`;
     for (const col of columns) {
-        // If not required, allow null
         output += `  ${col.name}: ${col.type}${col.required ? '' : ' | null'};\n`;
     }
     output += `};\n\n`;

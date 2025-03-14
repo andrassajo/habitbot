@@ -82,5 +82,8 @@ export async function generateTitle(question: string): Promise<string> {
     }
   
     const title = response.choices[0].message.content.trim();
+
+    console.log(`Generated title: ${title}`);
+
     return title;
   }
