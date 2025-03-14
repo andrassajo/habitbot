@@ -1,5 +1,4 @@
 import { generateTitle } from "@/lib/openai";
-import { Categorie } from "@shared/types";
 import { PoolClient } from "pg";
 
   /**
@@ -12,14 +11,13 @@ import { PoolClient } from "pg";
 export async function ensureConversation(client: any, conversation_id: string, message: string, category: string): Promise<string> {
   const result = await client.query('SELECT id FROM conversations WHERE id = $1', [conversation_id]);
 
-  console.log(`Conversation found by id: ${conversation_id}: ${result.rows[0]?.id}`);
 
   if (result.rows.length === 0) {
     const title = await generateTitle(message);
 
     const result = await client.query(
-      'INSERT INTO conversations(title, category_id) VALUES($1, $2) RETURNING id',
-      [title, category]
+      'INSERT INTO conversations(id, title, category_id) VALUES($1, $2, $3) RETURNING id',
+      [conversation_id, title, category]
     );
     const newConversationId = result.rows[0].id;
 
@@ -27,6 +25,8 @@ export async function ensureConversation(client: any, conversation_id: string, m
 
     return newConversationId;
   } else {
+    console.log(`Conversation found by id: ${conversation_id}: ${result.rows[0]?.id}`);
+
     return result.rows[0].id;
   }
 }
@@ -67,8 +67,6 @@ export async function getCategoryByKey(client: PoolClient, key: string): Promise
 export async function ensureUser(client: PoolClient,user_id: string): Promise<string> {
   const result = await client.query('SELECT id FROM users WHERE id = $1', [user_id]);
 
-  console.log(`User found by id: ${user_id}: ${result.rows[0]?.id}`);
-
   if (result.rows.length === 0) {
     const newUser = await client.query('INSERT INTO users(id) VALUES($1) RETURNING id', [user_id]);
 
@@ -76,6 +74,8 @@ export async function ensureUser(client: PoolClient,user_id: string): Promise<st
 
     return newUser.rows[0].id;
   } else {
+    console.log(`User found by id: ${user_id}: ${result.rows[0]?.id}`);
+    
     return result.rows[0].id;
   }
 }

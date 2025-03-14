@@ -15,12 +15,30 @@ dotenv.config();
  * @returns {Promise<{ rows: Array<ChatCompletionMessageParam> }>} 
  *          A promise that resolves to an object containing an array of message rows.
  */
-async function getConversationContext(conversationId: string): Promise<{ rows: Array<ChatCompletionMessageParam> }> {
-  const result = await pool.query(
+async function getConversationContext(conversationId: string, category: string): Promise<Array<ChatCompletionMessageParam>> {
+  console.log(`Retrieving conversation context for conversation ID: ${conversationId}`);
+
+  let result: ChatCompletionMessageParam[] = [];
+
+  const interactions = await pool.query(
     `SELECT role, content FROM messages WHERE conversation_id = $1 ORDER BY created_at ASC`,
     [conversationId]
   );
-  return result;
+
+  if (interactions.rows.length === 0) {
+    console.log(`Returning default context for new conversation by category ${category}`);
+    const defaultContext = await pool.query(
+      `SELECT context FROM categories
+      WHERE id = $1`,
+      [category]
+    );
+
+    console.log(`Found default context for category: ${category}, ${defaultContext.rows[0].context}`);
+
+    result = [{ role: "system", content: defaultContext.rows[0].context }, ...interactions.rows];
+  }
+
+  return result
 }
 
 /**
@@ -33,14 +51,13 @@ async function getConversationContext(conversationId: string): Promise<{ rows: A
  * @param {string} newUserMessage - The new message from the user.
  * @returns {Promise<string>} A promise that resolves to the AI's response message content.
  */
-export async function getResponse(conversationId: string, newUserMessage: string): Promise<string> {
-  
+export async function getResponse(conversationId: string, newUserMessage: string, category: string): Promise<string> {
   // Retrieve previous conversation history from the database.
-  const { rows: previousMessages } = await getConversationContext(conversationId);
+  const context = await getConversationContext(conversationId, category);
   
   // Combine previous messages with the new user message.
   const messages = [
-    ...previousMessages,
+    ...context,
     { role: "user", content: newUserMessage }
   ] as ChatCompletionMessageParam[];
 

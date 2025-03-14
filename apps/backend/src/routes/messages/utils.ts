@@ -7,7 +7,9 @@ export async function getMessagesByConversationId(clientDb: PoolClient, conversa
     [conversationId]
   );
 
-  console.log(`Messages found for conversation: ${conversationId}`);
+  if (rows.length === 0) {
+    console.log(`No messages found for conversation: ${conversationId}`);
+  }
 
-  return rows;
+  return rows
 }

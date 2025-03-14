@@ -78,5 +78,5 @@ export async function getMessages(conversation_id: string) {
   const response = await fetch(`${process.env['BACKEND_URL']}/api/messages/${conversation_id}`);
   const data = await response.json();
 
-  return data.messages;
+  return data.messages
 }

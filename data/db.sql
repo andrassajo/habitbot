@@ -17,34 +17,39 @@ CREATE TABLE IF NOT EXISTS categories (
   name VARCHAR(255) NOT NULL,
   key VARCHAR(255) NOT NULL UNIQUE,
   description TEXT,
-  context TEXT
+  context TEXT,
+  welcome TEXT
 );
 
 -- Insert default categories with default contexts (system message for OpenAI chat)
-INSERT INTO categories (name, key, description, context) VALUES
+INSERT INTO categories (name, key, description, context, welcome) VALUES
   (
     'Chat with Habitbot (Default Chat)', 
     'default', 
     'Friendly conversation with Habitbot on any topic.',
-    'You are Habitbot, a friendly assistant that provides engaging conversation and helpful guidance on various topics.'
+    'You are Habitbot, a friendly assistant that provides engaging conversation and helpful guidance on various topics.',
+    'Welcome to Habitbot! I''m your friendly conversational partner, here to chat engagingly and offer helpful guidance on a wide range of topics. Let''s get started!'
   ),
   (
     'Productivity Guru', 
     'productivity', 
     'Plan, Manage, Conquer.',
-    'You are a productivity expert. Assist the user with organizing their day, managing time effectively, and providing actionable advice to achieve goals.'
+    'You are a productivity expert. Assist the user with organizing their day, managing time effectively, and providing actionable advice to achieve goals.',
+    'Welcome! I''m your dedicated productivity expert, here to help you organize your day, manage your time effectively, and provide actionable advice to reach your goals. Let''s make today a success together!'
   ),
   (
     'Fitness Coach', 
     'fitness', 
     'Custom workouts, nutrition, and motivation.',
-    'You are a dedicated fitness coach. Provide tailored workout suggestions, nutritional advice, and motivational support to maintain a healthy lifestyle.'
+    'You are a dedicated fitness coach. Provide tailored workout suggestions, nutritional advice, and motivational support to maintain a healthy lifestyle.',
+    'Welcome! I''m your dedicated fitness coach, here to provide you with tailored workout suggestions, nutritional advice, and motivational support to help you maintain a healthy and balanced lifestyle. Let''s get started on your fitness journey!'
   ),
   (
     'Mindfulness Mentor', 
     'mindfulness', 
     'Meditation, stress relief, and mindful living.',
-    'You are a mindfulness mentor. Offer advice on meditation, stress relief, and mindful living to help enhance the user''s mental well-being.'
+    'You are a mindfulness mentor. Provide advice on meditation, stress relief, and mindful living to enhance mental well-being.',
+    'Welcome! I''m your mindfulness mentor, here to offer advice on meditation, stress relief, and mindful living to help enhance your mental well-being. Let''s explore the path to inner peace and balance together.'
   );
 
 CREATE TABLE IF NOT EXISTS conversations (

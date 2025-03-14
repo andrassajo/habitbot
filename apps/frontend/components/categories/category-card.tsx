@@ -4,6 +4,7 @@ import { ensureUserCookie } from "@/lib/actions";
 import { Categorie } from "@shared/types";
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
+import { v4 } from "uuid";
 
 export default function CategoryCard({ category }: { category: Categorie }) {
     const router = useRouter();
@@ -16,7 +17,7 @@ export default function CategoryCard({ category }: { category: Categorie }) {
 
     const handleNavigation = async () => {
         await ensureUserCookie();
-        router.push(`/${key}/new`);
+        router.push(`/${key}/${v4()}`);
     };
 
     return (

@@ -42,13 +42,13 @@ router.post('/', async (req, res) => {
 
     const category = await getCategoryByKey(clientDb, category_key);
 
-    const  conversation_id = await ensureConversation(clientDb, conversation_id_, message, category);
+    const conversation_id = await ensureConversation(clientDb, conversation_id_, message, category);
 
     const user = await ensureUser(clientDb, user_id,);
 
     await insertMessage(clientDb, conversation_id, user, 'user', message, category);
 
-    const aiResponse = await getResponse(conversation_id, message);
+    const aiResponse = await getResponse(conversation_id, message, category);
 
     await insertMessage(clientDb, conversation_id, user, 'assistant', aiResponse, category);
 

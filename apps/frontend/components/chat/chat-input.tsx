@@ -24,18 +24,18 @@ export default function ChatInput({
     }
 
     return (
-        <form action={action} className="p-2 border-t bg-white border-gray-300 rounded-full w-full md:w-[500px] relative text-xs">
+        <form action={action} className="p-2 border-t bg-white border-gray-300 rounded-xl w-full md:w-[550px] relative text-xs">
             <input
                 id="message"
                 name="message"
                 type="text"
                 onChange={handleChange}
                 placeholder="Type your message..."
-                className="p-2 text-black focus:outline-none w-5/6"
+                className="p-2 text-gray-500 focus:outline-none w-5/6"
             />
             <button
                 type="submit"
-                className={`w-[60px] absolute right-2 top-1/2 transform -translate-y-1/2 bg-secondary text-white px-4 py-2 rounded-full font-semibold transition hover:bg-secondary-dark
+                className={`w-[60px] flex items-center justify-center absolute right-2 top-1/2 transform -translate-y-1/2 bg-secondary text-white px-4 py-2 rounded-full font-semibold transition hover:bg-secondary-dark
                     ${isPending || !inputValue ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 disabled={isPending || !inputValue}
             >
