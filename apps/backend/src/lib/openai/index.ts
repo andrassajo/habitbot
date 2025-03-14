@@ -84,7 +84,7 @@ export async function getResponse(conversationId: string, newUserMessage: string
  * @returns {Promise<string>} A promise that resolves to the generated title.
  */
 export async function generateTitle(question: string): Promise<string> {
-    const prompt = `Generate a concise, descriptive title for the following conversation question:\n\n"${question}"\n\nTitle:`;
+    const prompt = `Generate a concise, descriptive title for the following conversation question:\n\n${question}\n\n`;
     
     const response = await openaiClient.chat.completions.create({
       model: "gpt-4o",

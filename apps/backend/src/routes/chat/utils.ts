@@ -9,7 +9,7 @@ import { PoolClient } from "pg";
  * @param title - The title of the conversation.
  * @returns {Promise<string>} A promise that resolves to the newly created conversation ID.
  */
-export async function ensureConversation(client: any, conversation_id: string, message: string, category: string): Promise<string> {
+export async function ensureConversation(client: any, conversation_id: string, message: string, category: string, user: string): Promise<string> {
   console.log(`Ensuring conversation with ID: ${conversation_id}`);
   
   const result = await client.query('SELECT id FROM conversations WHERE id = $1', [conversation_id]);
@@ -18,8 +18,8 @@ export async function ensureConversation(client: any, conversation_id: string, m
     const title = await generateTitle(message);
 
     const result = await client.query(
-      'INSERT INTO conversations(id, title, category_id) VALUES($1, $2, $3) RETURNING id',
-      [conversation_id, title, category]
+      'INSERT INTO conversations(id, title, category_id, user_id) VALUES($1, $2, $3, $4) RETURNING id',
+      [conversation_id, title, category, user]
     );
     const newConversationId = result.rows[0].id;
 
@@ -60,7 +60,7 @@ export async function insertMessage(
     return message.rows[0];
   }
   
-export async function getCategoryByKey(client: PoolClient, key: string): Promise<string> {
+export async function getCategoryIdByKey(client: PoolClient, key: string): Promise<string> {
     const result = await client.query('SELECT id FROM categories WHERE key = $1', [key]);
 
     console.log(`Category found by key: ${key}: ${result.rows[0]?.id}`);

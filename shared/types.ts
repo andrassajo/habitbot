@@ -3,10 +3,6 @@
 
 export type User = {
   id: string;
-  email: string;
-  name: string;
-  password: string;
-  hashed_refresh_token: string | null;
   created_at: Date | null;
 };
 
@@ -16,6 +12,7 @@ export type Categorie = {
   key: string;
   description: string | null;
   context: string | null;
+  welcome: string | null;
 };
 
 export type Conversation = {

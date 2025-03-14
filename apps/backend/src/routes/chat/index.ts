@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import dotenv from 'dotenv';
-import { generateTitle, getResponse } from '@/lib/openai';
-import { ensureConversation, ensureUser, getCategoryByKey, insertMessage } from './utils';
+import { getResponse } from '@/lib/openai';
+import { ensureConversation, ensureUser, getCategoryIdByKey, insertMessage } from './utils';
 import { pool } from '@/lib/db';
 import { getIO } from '@/lib/socket';
 dotenv.config();
@@ -19,9 +19,9 @@ router.post('/', async (req, res) => {
   const clientDb = await pool.connect();
   try {
     await clientDb.query('BEGIN');
-    const category = await getCategoryByKey(clientDb, category_key);
-    const conversation_id = await ensureConversation(clientDb, conversation_id_, message, category);
+    const category = await getCategoryIdByKey(clientDb, category_key);
     const user = await ensureUser(clientDb, user_id);
+    const conversation_id = await ensureConversation(clientDb, conversation_id_, message, category, user);
 
     // Insert user message
     const userMessage = await insertMessage(clientDb, conversation_id, user, 'user', message, category);

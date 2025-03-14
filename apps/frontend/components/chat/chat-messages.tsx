@@ -8,11 +8,19 @@ import io, { Socket } from 'socket.io-client';
 let socket: Socket;
 
 export default function ChatMessages({
-    messages
+    messages,
+    assistantName,
+    welcome
 }: {
-    messages: Message[]
+    messages: Message[],
+    assistantName: string,
+    welcome: string
 }) {
-    const [allMessages, setAllMessages] = useState<Message[]>(messages);
+    const [allMessages, setAllMessages] = useState<Pick<Message, "id" | "role" | "content">[]>([{
+        id: 'welcome',
+        content: welcome,
+        role: 'assistant',
+    }, ...messages]);
     const bottomRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -56,7 +64,7 @@ export default function ChatMessages({
             {/* Render a loading bubble if the last message is from the user */}
             {showLoading && (
                 <div className="prose p-4 rounded-xl max-w-xs bg-tertiary text-white self-start flex items-center gap-2">
-                    <span>Assistant is thinking...</span>
+                    <span>{assistantName} is thinking...</span>
                     {/* You can also add a spinner icon here if desired */}
                     <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

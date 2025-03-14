@@ -32,6 +32,7 @@ export default function ChatInput({
         if (e.key === 'Enter') {
             e.preventDefault();
             setInputValue('');
+            e.currentTarget.style.height = 'auto';
             formRef.current?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
         }
     }
