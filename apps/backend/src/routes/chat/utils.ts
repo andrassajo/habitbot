@@ -1,4 +1,5 @@
 import { generateTitle } from "@/lib/openai";
+import { Message } from "@shared/types";
 import { PoolClient } from "pg";
 
   /**
@@ -9,8 +10,9 @@ import { PoolClient } from "pg";
  * @returns {Promise<string>} A promise that resolves to the newly created conversation ID.
  */
 export async function ensureConversation(client: any, conversation_id: string, message: string, category: string): Promise<string> {
+  console.log(`Ensuring conversation with ID: ${conversation_id}`);
+  
   const result = await client.query('SELECT id FROM conversations WHERE id = $1', [conversation_id]);
-
 
   if (result.rows.length === 0) {
     const title = await generateTitle(message);
@@ -47,13 +49,15 @@ export async function insertMessage(
     role: string,
     content: string,
     category: string
-  ): Promise<void> {
-    await client.query(
-      'INSERT INTO messages(conversation_id, role, user_id, content, category_id) VALUES($1, $2, $3, $4, $5)',
+  ): Promise<Pick<Message, 'id' | 'role' | 'content'>> {
+    const message = await client.query(
+      'INSERT INTO messages(conversation_id, role, user_id, content, category_id) VALUES($1, $2, $3, $4, $5) RETURNING id, role, content',
       [conversation_id, role, user, content, category]
     );
 
     console.log(`New message inserted into conversation ${conversation_id} for role ${role}`);
+
+    return message.rows[0];
   }
   
 export async function getCategoryByKey(client: PoolClient, key: string): Promise<string> {

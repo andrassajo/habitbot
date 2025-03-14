@@ -59,7 +59,7 @@ export async function sendMessage(
       body: JSON.stringify({
         ...validationFields.data,
         category_key,
-        conversation_id,
+        conversation_id: conversation_id || uuidv4(),
         user_id: userId
       }),
     })

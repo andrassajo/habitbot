@@ -23,6 +23,7 @@
     "node-fetch": "^2.7.0",
     "openai": "^4.87.3",
     "pg": "^8.7.3",
+    "socket.io": "^4.8.1",
     "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
