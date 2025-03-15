@@ -11,11 +11,13 @@ let socket: Socket;
 export default function ChatMessages({
     messages,
     assistantName,
-    welcome
+    welcome,
+    conversation_id
 }: {
     messages: Message[],
     assistantName: string,
-    welcome: string
+    welcome: string,
+    conversation_id: string
 }) {
     const t = useTranslations("chat")
 
@@ -34,7 +36,9 @@ export default function ChatMessages({
         });
 
         socket.on('chat message', (msg: Message) => {
-            setAllMessages(prev => [...prev, msg]);
+            if (msg.conversation_id === conversation_id) {
+                setAllMessages(prev => [...prev, msg]);
+            }
         });
 
         return () => {

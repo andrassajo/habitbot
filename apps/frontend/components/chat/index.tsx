@@ -13,7 +13,12 @@ export default async function Chat({ category, id }: {
 
     return (
         <div className="flex flex-col h-full w-full">
-            <ChatMessages messages={messages} assistantName={name} welcome={welcome} />
+            <ChatMessages
+                messages={messages}
+                assistantName={name}
+                welcome={welcome}
+                conversation_id={id}
+            />
             <ChatInput
                 conversation_id={id}
                 category={category}
