@@ -3,12 +3,17 @@
   "private": true,
   "devDependencies": {
     "@types/lodash": "^4.17.16",
+    "concurrently": "^9.1.2",
     "turbo": "latest"
   },
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --parallel",
     "build": "turbo run build",
-    "bootstrap": "node bootstrap.js"
+    "bootstrap": "node bootstrap.js",
+    "start:frontend": "cd apps/frontend && pnpm start",
+    "start:backend": "cd apps/backend && pnpm start",
+    "start": "concurrently \"pnpm --filter frontend start\" \"pnpm --filter backend start\"",
+    "docker-build": "turbo run docker-build && docker build ."
   },
   "packageManager": "pnpm@9.14.2",
   "dependencies": {

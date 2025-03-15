@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ensureUserCookie } from "./lib/actions";
+import { ensureUserCookie } from "./app/actions";
 
 export default async function middleware(req: NextRequest) {
-    await ensureUserCookie();
+  const response = NextResponse.next();
+  
+  await ensureUserCookie();
 
-  NextResponse.next();
+  return response
 }
 
 export const config = {

@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: habitbot
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: T3l3k0m4
+    volumes:
+      - ./data/db.sql:/docker-entrypoint-initdb.d/db.sql
+    ports:
+      - "5433:5432" # Host port 5433 is mapped to container's 5432
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - db
+    restart: unless-stopped
+    working_dir: /app
+    command: pnpm run start

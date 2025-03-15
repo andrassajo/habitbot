@@ -1,4 +1,3 @@
-import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import { ChatCompletionMessageParam } from 'openai/resources';
 import { pool } from '../db';

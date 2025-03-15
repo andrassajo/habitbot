@@ -1,13 +1,28 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "tasks": {
-      "dev": {
-        "cache": false,
-        "persistent": true
-      },
       "build": {
         "dependsOn": ["^build"],
-        "outputs": []
+        "outputs": ["dist/**", ".next/**"]
+      },
+      "build:shared": {
+      },
+      "frontend#build": {
+        "dependsOn": ["^build"],
+        "env": ["BACKEND_URL"],
+        "outputs": ["dist/**", ".next/**"]
+      },
+      "dev": {
+        "cache": false
+      },
+      "bootstrap": {
+        "cache": false
+      },
+      "start": {
+        "cache": false
+      },
+      "docker-build": {
+        "dependsOn": ["build"]
       }
     }
   }

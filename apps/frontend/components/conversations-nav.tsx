@@ -2,7 +2,6 @@
 
 import Modal from "./modal";
 import { useState } from "react";
-import _ from 'lodash';
 import { useTranslations } from "next-intl";
 
 export default function ConversationsNav({

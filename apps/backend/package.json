@@ -1,16 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "_moduleAliases": {
-    "@": "dist"
-  },
   "main": "src/app.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/server.ts",
-    "build": "turbo run build",
-    "start": "node dist/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/app.ts",
+    "start": "node dist/apps/backend/src/app.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "tsc"
   },
   "dependencies": {
     "argon2": "^0.41.1",

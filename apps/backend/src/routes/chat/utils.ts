@@ -1,6 +1,6 @@
-import { generateTitle } from "@/lib/openai";
 import { Message } from "@shared/types";
 import { PoolClient } from "pg";
+import { generateTitle } from "../../lib/openai";
 
   /**
  * Creates a new conversation record in the database.

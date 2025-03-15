@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import dotenv from 'dotenv';
-import { getResponse } from '@/lib/openai';
 import { ensureConversation, ensureUser, getCategoryIdByKey, insertMessage } from './utils';
-import { pool } from '@/lib/db';
-import { getIO } from '@/lib/socket';
+import { pool } from '../../lib/db';
+import { getIO } from '../../lib/socket';
+import { getResponse } from '../../lib/openai';
 dotenv.config();
 
 const router = Router();

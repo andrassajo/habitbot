@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import dotenv from 'dotenv';
-import { pool } from '@/lib/db';
 import { getConversationById, getConversationsByUser } from './utils';
+import { pool } from '../../lib/db';
 dotenv.config();
 
 const router = Router();

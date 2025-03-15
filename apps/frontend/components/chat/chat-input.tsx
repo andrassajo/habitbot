@@ -19,7 +19,7 @@ export default function ChatInput({
     const sendMessageWithConversation = (state: FormState, formData: FormData) =>
         sendMessage(state, formData, category, conversation_id);
 
-    const [state, action, isPending] = useActionState(sendMessageWithConversation, undefined);
+    const [, action, isPending] = useActionState(sendMessageWithConversation, undefined);
 
     // Manage input value state as string
     const [inputValue, setInputValue] = useState<string>('');

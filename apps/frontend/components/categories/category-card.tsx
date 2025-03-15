@@ -1,6 +1,6 @@
 'use client';
 
-import { ensureUserCookie } from "@/lib/actions";
+import { getUserCookie } from "@/app/actions";
 import { Categorie } from "@shared/types";
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
@@ -16,7 +16,7 @@ export default function CategoryCard({ category }: { category: Categorie }) {
     } = category;
 
     const handleNavigation = async () => {
-        await ensureUserCookie();
+        await getUserCookie();
 
         router.push(`/${key}/${v4()}`);
     };

@@ -1,10 +1,10 @@
 'use server';
 
 import { Categorie } from "@shared/types";
-import { cookies } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 import { ChatInputSchame, FormState } from "./types";
 import { redirect } from "next/navigation";
+import { getUserCookie } from "@/app/actions";
 
 export async function getCategories(): Promise<Categorie[]> {
   const response = await fetch(`${process.env['BACKEND_URL']}/api/category/all`);
@@ -12,26 +12,6 @@ export async function getCategories(): Promise<Categorie[]> {
 
   return data.categories.filter((category: Categorie) => category.key !== 'default');
 }
-
-const COOKIE_NAME = 'userId';
-
-export async function ensureUserCookie(): Promise<string> {
-  const userId = (await cookies()).get(COOKIE_NAME)?.value;
-
-  if (!userId) {
-    const newUserId = uuidv4();
-
-    (await cookies()).set('userId', newUserId, {
-      httpOnly: true,
-      path: '/',
-    });
-
-    return newUserId;
-  }
-  
-  return userId;
-}
-
 
 export async function sendMessage(
   state: FormState,
@@ -49,7 +29,7 @@ export async function sendMessage(
     };
   }
 
-    const userId = await ensureUserCookie();
+    const userId = await getUserCookie();
 
     const response = await fetch(`${process.env['BACKEND_URL']}/api/chat`, {
       method: 'POST',
@@ -96,7 +76,7 @@ export async function getConversationById(id: string) {
 }
 
 export async function getConversationsByUser() {
-  const userId = await ensureUserCookie();
+  const userId = await getUserCookie();
 
   const response = await fetch(`${process.env['BACKEND_URL']}/api/conversations/by-user/${userId}`);
   const data = await response.json();
