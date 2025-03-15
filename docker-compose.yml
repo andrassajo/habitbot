@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:17
     environment:
-      POSTGRES_DB: habitbot
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: T3l3k0m4
+      POSTGRES_DB: yourdbname
+      POSTGRES_USER: yourdbuser
+      POSTGRES_PASSWORD: yourdbpassword
     volumes:
       - ./data/db.sql:/docker-entrypoint-initdb.d/db.sql
     ports:
