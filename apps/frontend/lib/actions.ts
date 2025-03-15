@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { getUserCookie } from "@/app/actions";
 
 export async function getCategories(): Promise<Categorie[]> {
-  const response = await fetch(`${process.env['BACKEND_URL']}/api/category/all`);
+  const response = await fetch(`${process.env['NEXT_PUBLIC_BACKEND_URL']}/api/category/all`);
   const data = await response.json();
 
   return data.categories.filter((category: Categorie) => category.key !== 'default');
@@ -31,7 +31,7 @@ export async function sendMessage(
 
     const userId = await getUserCookie();
 
-    const response = await fetch(`${process.env['BACKEND_URL']}/api/chat`, {
+    const response = await fetch(`${process.env['NEXT_PUBLIC_BACKEND_URL']}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,21 +55,21 @@ export async function sendMessage(
 }
 
 export async function getMessages(conversation_id: string) {
-  const response = await fetch(`${process.env['BACKEND_URL']}/api/messages/${conversation_id}`);
+  const response = await fetch(`${process.env['NEXT_PUBLIC_BACKEND_URL']}/api/messages/${conversation_id}`);
   const data = await response.json();
 
   return data.messages
 }
 
 export async function getCategoryByKey(category_key: string) {
-  const response = await fetch(`${process.env['BACKEND_URL']}/api/category/${category_key}`);
+  const response = await fetch(`${process.env['NEXT_PUBLIC_BACKEND_URL']}/api/category/${category_key}`);
   const data = await response.json();
 
   return data.category;
 }
 
 export async function getConversationById(id: string) {
-  const response = await fetch(`${process.env['BACKEND_URL']}/api/conversations/${id}`);
+  const response = await fetch(`${process.env['NEXT_PUBLIC_BACKEND_URL']}/api/conversations/${id}`);
   const data = await response.json();
 
   return data.conversation;
@@ -78,7 +78,7 @@ export async function getConversationById(id: string) {
 export async function getConversationsByUser() {
   const userId = await getUserCookie();
 
-  const response = await fetch(`${process.env['BACKEND_URL']}/api/conversations/by-user/${userId}`);
+  const response = await fetch(`${process.env['NEXT_PUBLIC_BACKEND_URL']}/api/conversations/by-user/${userId}`);
   const data = await response.json();
 
   return data.conversations;

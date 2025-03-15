@@ -1,0 +1,9 @@
+FROM node:18 AS base
+WORKDIR /app
+COPY package.json pnpm-lock.yaml /app/
+COPY /apps/frontend/package.json /app/apps/frontend/package.json
+RUN npm install -g pnpm
+RUN pnpm install
+COPY . /app
+RUN pnpm --filter frontend run build
+CMD ["pnpm", "--filter", "frontend", "run", "start"]
