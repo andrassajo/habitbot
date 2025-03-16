@@ -14,16 +14,20 @@ export default function ChatInput({
     conversation_id?: string,
     category?: string
 }) {
-    const t = useTranslations("chat");
-
-    const sendMessageWithConversation = (state: FormState, formData: FormData) =>
-        sendMessage(state, formData, category, conversation_id);
-
-    const [, action, isPending] = useActionState(sendMessageWithConversation, undefined);
-
     // Manage input value state as string
     const [inputValue, setInputValue] = useState<string>('');
     const formRef = useRef<HTMLFormElement>(null);
+
+    const t = useTranslations("chat");
+
+    const sendMessageWithConversation = (state: FormState, formData: FormData) => {
+        setInputValue('');
+
+        return sendMessage(state, formData, category, conversation_id)
+    }
+
+    const [, action, isPending] = useActionState(sendMessageWithConversation, undefined);
+
 
     function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setInputValue(e.currentTarget.value);

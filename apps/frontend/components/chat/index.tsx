@@ -12,7 +12,7 @@ export default async function Chat({ category, id }: {
     const { name, welcome } = await getCategoryByKey(category);
 
     return (
-        <div className="flex flex-col h-full w-full">
+        <div className="flex flex-col justify-between h-full w-full">
             <ChatMessages
                 messages={messages}
                 assistantName={name}

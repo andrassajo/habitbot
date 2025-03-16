@@ -13,8 +13,6 @@ router.get('/:id', async (req, res) => {
   try {
     await clientDb.query('BEGIN');
 
-    console.log('id', id);
-
     const conversation = await getConversationById(clientDb, id);
 
     await clientDb.query('COMMIT');

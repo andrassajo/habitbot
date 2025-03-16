@@ -23,7 +23,7 @@ export default async function ChatPage({ params }: {
     params: Promise<{ category: string, id: string }>
 }) {
     return (
-        <div className='flex flex-col lg:flex-row items-end justify-end h-full gap-20 w-full px-3 lg:px-10'>
+        <div className='flex flex-col lg:flex-row items-end h-full gap-20 w-full px-3 lg:px-10'>
             <div className="hidden lg:flex flex-col items-center justify-around h-full w-full">
                 <Suspense fallback={<InfoSkeleton />}>
                     <Info params={await params} />

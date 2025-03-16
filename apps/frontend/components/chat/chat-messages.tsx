@@ -54,7 +54,7 @@ export default function ChatMessages({
     const showLoading = lastMessage && lastMessage.role === 'user';
 
     return (
-        <div className="flex flex-col flex-1 overflow-y-auto gap-4 text-xs p-4 custom-scrollbar">
+        <div className="flex flex-col overflow-y-auto gap-4 text-xs p-4 custom-scrollbar">
             {allMessages.map((msg) => (
                 <div
                     key={msg.id}

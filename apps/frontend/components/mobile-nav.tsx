@@ -20,7 +20,7 @@ export default function MobileNav({
     const isOpen = _.includes(['info', 'conversations'], modal);
 
     return (
-        <footer className="lg:hidden absolute bottom-0 w-full flex flex-row justify-around items-center text-white text-xs border-t border-gray-300">
+        <footer className="lg:hidden fixed bottom-0 w-full flex flex-row justify-around items-center text-white text-xs border-t border-gray-300">
             <Link href="/" className="hover:bg-white hover:text-secondary transition duration-300 ease-in-out flex flex-col items-center justify-center w-full gap-1 h-full pt-2 pb-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h3v-6h6v6h3v-9l-6-4.5L6 10zm-2 2V9l8-6l8 6v12h-7v-6h-2v6zm8-8.75" /></svg>
                 {t('home')}
